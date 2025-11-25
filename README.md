@@ -14,6 +14,9 @@ Este proyecto integra técnicas de aprendizaje supervisado y no supervisado util
 
 ---
 
+Link del video: https://drive.google.com/file/d/1juxV-u0PDORdaE0envlda6NXvONlS-1B/view?usp=sharing
+
+
 ## Contenidos del Proyecto
 
 ### 1. Predicción de Churn (Telco) - Clasificación
