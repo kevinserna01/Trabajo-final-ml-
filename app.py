@@ -696,8 +696,6 @@ Modelos implementados:
 - Regresión Logística
 - K-Nearest Neighbors
 - K-Means Clustering
-
-Desarrollado con Streamlit
 """)
 
 st.sidebar.markdown("---")
