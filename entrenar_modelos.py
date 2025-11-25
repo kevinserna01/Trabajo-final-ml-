@@ -43,7 +43,7 @@ def entrenar_modelos_telco():
     
     # Carga de datos
     print("\n1. Cargando dataset Telco Customer Churn...")
-    df_telco = pd.read_csv('WA_Fn-UseC_-Telco-Customer-Churn.csv')
+    df_telco = pd.read_csv('datasets/WA_Fn-UseC_-Telco-Customer-Churn.csv')
     print(f"   - Dimensiones originales: {df_telco.shape}")
     
     # Limpieza de datos
@@ -127,23 +127,23 @@ def entrenar_modelos_telco():
     # Exportación de modelos
     print("\n9. Exportando modelos y recursos...")
     
-    with open('modelo_logistica.pkl', 'wb') as f:
+    with open('models/modelo_logistica.pkl', 'wb') as f:
         pickle.dump(log_model, f)
-    print(f"   - modelo_logistica.pkl guardado")
+    print(f"   - models/modelo_logistica.pkl guardado")
     
-    with open('modelo_knn.pkl', 'wb') as f:
+    with open('models/modelo_knn.pkl', 'wb') as f:
         pickle.dump(knn_model, f)
-    print(f"   - modelo_knn.pkl guardado")
+    print(f"   - models/modelo_knn.pkl guardado")
     
-    with open('scaler_telco.pkl', 'wb') as f:
+    with open('scalers/scaler_telco.pkl', 'wb') as f:
         pickle.dump(scaler_telco, f)
-    print(f"   - scaler_telco.pkl guardado")
+    print(f"   - scalers/scaler_telco.pkl guardado")
     
     # Guardar nombres de columnas (crítico para predicción)
     columnas_telco = X_encoded.columns.tolist()
-    with open('columnas_telco.pkl', 'wb') as f:
+    with open('data/columnas_telco.pkl', 'wb') as f:
         pickle.dump(columnas_telco, f)
-    print(f"   - columnas_telco.pkl guardado ({len(columnas_telco)} columnas)")
+    print(f"   - data/columnas_telco.pkl guardado ({len(columnas_telco)} columnas)")
     
     print("\n" + "="*60)
     print("FASE 1 COMPLETADA: Modelos supervisados entrenados")
@@ -172,7 +172,7 @@ def entrenar_modelo_clustering():
     
     # Carga de datos
     print("\n1. Cargando dataset Credit Card...")
-    df_cc = pd.read_csv('CC GENERAL.csv')
+    df_cc = pd.read_csv('datasets/CC GENERAL.csv')
     print(f"   - Dimensiones originales: {df_cc.shape}")
     
     # Análisis de valores faltantes
@@ -231,19 +231,19 @@ def entrenar_modelo_clustering():
     # Exportación de modelo y recursos
     print("\n7. Exportando modelo y recursos...")
     
-    with open('modelo_kmeans.pkl', 'wb') as f:
+    with open('models/modelo_kmeans.pkl', 'wb') as f:
         pickle.dump(kmeans_model, f)
-    print(f"   - modelo_kmeans.pkl guardado")
+    print(f"   - models/modelo_kmeans.pkl guardado")
     
-    with open('scaler_cc.pkl', 'wb') as f:
+    with open('scalers/scaler_cc.pkl', 'wb') as f:
         pickle.dump(scaler_cc, f)
-    print(f"   - scaler_cc.pkl guardado")
+    print(f"   - scalers/scaler_cc.pkl guardado")
     
     # Guardar nombres de columnas
     columnas_cc = df_cc.columns.tolist()
-    with open('columnas_cc.pkl', 'wb') as f:
+    with open('data/columnas_cc.pkl', 'wb') as f:
         pickle.dump(columnas_cc, f)
-    print(f"   - columnas_cc.pkl guardado ({len(columnas_cc)} columnas)")
+    print(f"   - data/columnas_cc.pkl guardado ({len(columnas_cc)} columnas)")
     
     print("\n" + "="*60)
     print("FASE 2 COMPLETADA: Modelo de clustering entrenado")
@@ -273,15 +273,15 @@ def main():
     print("#"*60)
     print("\nModelos entrenados y exportados exitosamente:")
     print("\nModelos Supervisados (Churn Prediction):")
-    print("  1. modelo_logistica.pkl - Regresión Logística")
-    print("  2. modelo_knn.pkl - K-Nearest Neighbors")
-    print("  3. scaler_telco.pkl - MinMax Scaler")
-    print("  4. columnas_telco.pkl - Nombres de columnas")
+    print("  1. models/modelo_logistica.pkl - Regresión Logística")
+    print("  2. models/modelo_knn.pkl - K-Nearest Neighbors")
+    print("  3. scalers/scaler_telco.pkl - MinMax Scaler")
+    print("  4. data/columnas_telco.pkl - Nombres de columnas")
     
     print("\nModelo No Supervisado (Clustering):")
-    print("  5. modelo_kmeans.pkl - K-Means Clustering")
-    print("  6. scaler_cc.pkl - Standard Scaler")
-    print("  7. columnas_cc.pkl - Nombres de columnas")
+    print("  5. models/modelo_kmeans.pkl - K-Means Clustering")
+    print("  6. scalers/scaler_cc.pkl - Standard Scaler")
+    print("  7. data/columnas_cc.pkl - Nombres de columnas")
     
     print("\n" + "#"*60)
     print("# SIGUIENTE PASO")

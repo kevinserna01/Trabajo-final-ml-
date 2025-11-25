@@ -1,299 +1,204 @@
-# Proyecto Final - Machine Learning Supervisado y No Supervisado
+# Proyecto Final - Machine Learning
 
-Proyecto académico de Machine Learning que implementa modelos supervisados (clasificación) y no supervisados (clustering) con aplicación web interactiva.
+## Clasificación y Clustering con Aplicación Web
 
-## Descripción
+Este proyecto integra técnicas de aprendizaje supervisado y no supervisado utilizando Python y una aplicación web construida con Streamlit. Incluye dos notebooks de análisis, un script para entrenamiento en producción y una interfaz para realizar predicciones en tiempo real.
 
-Este proyecto consta de dos análisis principales de Machine Learning aplicados a casos de uso empresariales:
+---
 
-### 1. Predicción de Churn (Telco Customer Churn)
+## Autores
 
-**Objetivo:** Predecir si un cliente de telecomunicaciones cancelará su servicio.
+- **Johan Stiven Sinisterra Campaz**
+- **Kevin Fernando Serna Goyes**
+- **Juan David Quintero Pimentel**
 
-**Modelos implementados:**
+---
+
+## Contenidos del Proyecto
+
+### 1. Predicción de Churn (Telco) - Clasificación
+
+Notebook enfocado en predecir si un cliente de telecomunicaciones abandonará el servicio.
+
+#### Pasos principales
+
+**Limpieza de datos**
+- Conversión de TotalCharges a formato numérico
+- Eliminación de valores nulos
+- Eliminación de la columna customerID
+- Mapeo de Churn a valores 0 y 1
+
+**Preprocesamiento**
+- One-Hot Encoding para variables categóricas
+- MinMaxScaler para normalización
+- División en Train/Test (80/20)
+
+**Modelado**
 - Regresión Logística
-- K-Nearest Neighbors (KNN)
+- KNN (k = 9)
 
-**Métricas de evaluación:**
-- ROC Curve
-- AUC (Area Under the Curve)
-- Matriz de Confusión
-- Accuracy, Precision, Recall, F1-Score
+**Evaluación**
+- Accuracy
+- Precision
+- Recall
+- F1-Score
+- Matriz de confusión
+- Curva ROC
 
-### 2. Segmentación de Clientes (Credit Card Dataset)
+**Resultado:** La Regresión Logística obtiene el mejor AUC aproximado de **0.84**.
 
-**Objetivo:** Agrupar clientes de tarjetas de crédito en perfiles de comportamiento homogéneos.
+---
 
-**Modelo implementado:**
-- K-Means Clustering
+### 2. Clustering de Clientes (Credit Cards) - K-Means
 
-**Análisis realizado:**
-- Método del Codo (Elbow Method)
-- Silhouette Score
-- Interpretación de Perfiles de Clusters
+Notebook enfocado en segmentar clientes de tarjetas de crédito.
 
-## Instalación
+#### Pasos principales
 
-### Requisitos previos
-- Python 3.13 o superior
-- pip (gestor de paquetes de Python)
+**Limpieza**
+- Relleno de valores nulos mediante la mediana
+- Eliminación de la columna CUST_ID
 
-### 1. Clonar el repositorio
+**Escalado**
+- StandardScaler para estandarización
 
-```bash
-git clone https://github.com/TU_USUARIO/nombre-repo.git
-cd nombre-repo
+**Selección de K**
+- Método del codo → K = 4
+
+**Modelado**
+- K-Means con n_clusters = 4
+
+**Análisis de perfiles**
+- Silhouette score aproximadamente **0.45**
+
+**Perfiles identificados:**
+1. **Bajo uso / Ahorradores**
+2. **Clientes VIP / Gastadores**
+3. **Usuarios de efectivo**
+4. **Deudores con alto balance**
+
+---
+
+## Script de Entrenamiento - `entrenar_modelos.py`
+
+Este script automatiza el preprocesamiento y guardado de los modelos entrenados, así como los escaladores y columnas necesarias.
+
+### Archivos generados
+
+**Modelos (carpeta `models/`):**
+- `modelo_logistica.pkl` - Regresión Logística
+- `modelo_knn.pkl` - K-Nearest Neighbors
+- `modelo_kmeans.pkl` - K-Means Clustering
+
+**Escaladores (carpeta `scalers/`):**
+- `scaler_telco.pkl` - MinMaxScaler para Telco
+- `scaler_cc.pkl` - StandardScaler para Credit Card
+
+**Metadatos (carpeta `data/`):**
+- `columnas_telco.pkl` - Nombres de columnas procesadas (Telco)
+- `columnas_cc.pkl` - Nombres de columnas procesadas (Credit Card)
+
+---
+
+## Aplicación Web - `app.py`
+
+Aplicación construida en Streamlit que permite:
+
+### Clasificación (Churn)
+- Ingresar datos del cliente mediante formulario interactivo
+- Aplicar preprocesamiento automático
+- Obtener probabilidad de abandono usando Regresión Logística o KNN
+- Visualizar recomendaciones según nivel de riesgo
+
+### Clustering (Credit Cards)
+- Ingresar datos financieros del cliente
+- Aplicar escalado y alineación de columnas
+- Asignación a uno de los 4 clusters
+- Descripción del perfil correspondiente
+- Estrategias de marketing sugeridas
+
+---
+
+## Estructura del Proyecto
+
+```
+Trabajo-final-ml-/
+│
+├── app.py                          # Aplicación web Streamlit
+├── entrenar_modelos.py             # Script de entrenamiento
+├── requirements.txt                # Dependencias Python
+├── .gitignore                      # Archivos ignorados por Git
+│
+├── models/                         # Modelos entrenados
+│   ├── modelo_logistica.pkl
+│   ├── modelo_knn.pkl
+│   └── modelo_kmeans.pkl
+│
+├── scalers/                        # Escaladores/Normalizadores
+│   ├── scaler_telco.pkl
+│   └── scaler_cc.pkl
+│
+├── data/                           # Metadatos de columnas
+│   ├── columnas_telco.pkl
+│   └── columnas_cc.pkl
+│
+├── datasets/                       # Datasets originales
+│   ├── WA_Fn-UseC_-Telco-Customer-Churn.csv
+│   └── CC GENERAL.csv
+│
+└── notebooks/                      # Análisis exploratorio
+    ├── Proyecto_Final_Telco.ipynb
+    └── Proyecto_Final_Clustering_Tarjetas.ipynb
 ```
 
-### 2. Crear entorno virtual (recomendado)
+---
 
-```bash
-python -m venv .venv
-```
+## Tecnologías Utilizadas
 
-### 3. Activar entorno virtual
+- **Python 3.13**
+- **Scikit-learn** - Algoritmos de Machine Learning
+- **Pandas** - Manipulación de datos
+- **NumPy** - Operaciones numéricas
+- **Streamlit** - Framework para aplicación web
+- **Matplotlib** - Visualización de datos
+- **Seaborn** - Visualización estadística
+- **Pickle** - Serialización de modelos
 
-**Windows (PowerShell):**
-```powershell
-.venv\Scripts\Activate.ps1
-```
+---
 
-**Windows (CMD):**
-```cmd
-.venv\Scripts\activate
-```
+## Cómo Ejecutarlo
 
-**Linux/Mac:**
-```bash
-source .venv/bin/activate
-```
-
-### 4. Instalar dependencias
+### 1. Instalar dependencias
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Uso del Proyecto
-
-### Análisis Exploratorio (Notebooks Jupyter)
-
-Para revisar el análisis exploratorio de datos y el proceso de desarrollo de los modelos:
-
-**Modelo Supervisado - Predicción de Churn:**
-```bash
-jupyter notebook Proyecto_Final_Telco.ipynb
-```
-
-**Modelo No Supervisado - Clustering:**
-```bash
-jupyter notebook Proyecto_Final_Clustering_Tarjetas.ipynb
-```
-
-### Aplicación Web Interactiva
-
-#### Paso 1: Entrenar y exportar modelos
-
-Antes de ejecutar la aplicación web, es necesario entrenar los modelos:
+### 2. Entrenar los modelos
 
 ```bash
 python entrenar_modelos.py
 ```
 
-Este script realiza las siguientes operaciones:
-- Carga y preprocesa los datasets
-- Entrena Regresión Logística, KNN y K-Means
-- Exporta los modelos como archivos `.pkl`
-- Guarda los scalers y nombres de columnas necesarios
+Este comando:
+- Carga los datasets desde `datasets/`
+- Preprocesa los datos
+- Entrena los 3 modelos
+- Guarda modelos en `models/`
+- Guarda escaladores en `scalers/`
+- Guarda metadatos en `data/`
 
-#### Paso 2: Ejecutar la aplicación web
+### 3. Iniciar la aplicación
 
 ```bash
 streamlit run app.py
 ```
 
-La aplicación se abrirá automáticamente en tu navegador en `http://localhost:8501`
+### 4. Abrir en el navegador
 
-## Funcionalidades de la Aplicación Web
-
-### Regresión Logística (Predicción de Churn)
-
-- Formulario interactivo con variables del cliente
-- Predicción de probabilidad de abandono (porcentaje)
-- Clasificación binaria: Yes/No
-- Recomendaciones según nivel de riesgo
-
-**Variables de entrada:**
-- Datos demográficos (género, edad, dependientes)
-- Servicios contratados (internet, teléfono, streaming)
-- Información de contrato (tipo, método de pago)
-- Datos financieros (antigüedad, cargos mensuales)
-
-### K-Nearest Neighbors (Predicción de Churn)
-
-- Mismo formulario que Regresión Logística
-- Clasificación basada en vecinos cercanos (k=9)
-- Resultado: Yes/No con interpretación
-
-### K-Means Clustering (Segmentación)
-
-- Formulario con features numéricas del cliente
-- Asignación automática a cluster (0-3)
-- Descripción detallada del perfil del cluster
-- Estrategias de marketing sugeridas
-
-**Perfiles de clusters identificados:**
-- **Grupo 0:** Ahorradores / Bajo Uso
-- **Grupo 1:** Gastadores VIP
-- **Grupo 2:** Usuarios de Efectivo
-- **Grupo 3:** Alto Balance / Deudores
-
-## Estructura del Proyecto
+La aplicación se abrirá automáticamente en:
 
 ```
-├── app.py                                    # Aplicación web Streamlit
-├── entrenar_modelos.py                       # Script de entrenamiento
-├── Proyecto_Final_Telco.ipynb               # Notebook Churn (supervisado)
-├── Proyecto_Final_Clustering_Tarjetas.ipynb # Notebook Clustering (no supervisado)
-├── WA_Fn-UseC_-Telco-Customer-Churn.csv     # Dataset Telco
-├── CC GENERAL.csv                            # Dataset Credit Card
-├── modelo_logistica.pkl                      # Modelo exportado
-├── modelo_knn.pkl                            # Modelo exportado
-├── modelo_kmeans.pkl                         # Modelo exportado
-├── scaler_telco.pkl                          # Scaler para Telco
-├── scaler_cc.pkl                             # Scaler para Credit Card
-├── columnas_telco.pkl                        # Columnas procesadas
-├── columnas_cc.pkl                           # Columnas procesadas
-├── requirements.txt                          # Dependencias Python
-├── .gitignore                                # Archivos ignorados
-└── README.md                                 # Este archivo
+http://localhost:8501
 ```
 
-## Tecnologías Utilizadas
-
-### Lenguaje y Framework
-- **Python 3.13** - Lenguaje de programación
-
-### Bibliotecas de Data Science
-- **Pandas 2.3.3** - Manipulación y análisis de datos
-- **NumPy 2.3.5** - Operaciones numéricas y matrices
-- **Matplotlib 3.10.7** - Visualización de datos (gráficos)
-- **Seaborn 0.13.2** - Visualización estadística avanzada
-
-### Machine Learning
-- **Scikit-learn 1.7.2** - Algoritmos de ML y preprocesamiento
-  - Regresión Logística
-  - K-Nearest Neighbors
-  - K-Means Clustering
-  - MinMaxScaler y StandardScaler
-  - Métricas de evaluación
-
-### Aplicación Web
-- **Streamlit 1.51.0** - Framework para aplicaciones web interactivas
-
-## Resultados del Proyecto
-
-### Modelos Supervisados (Predicción de Churn)
-
-**Regresión Logística:**
-- AUC-ROC: ~0.84
-- Proporciona probabilidades interpretables
-- Rápido en inferencia
-
-**K-Nearest Neighbors:**
-- AUC-ROC: ~0.82
-- Efectivo para patrones no lineales
-- k=9 vecinos
-
-**Conclusión:** Ambos modelos muestran buen rendimiento en la detección de clientes en riesgo de abandono, siendo la Regresión Logística ligeramente superior en términos de AUC.
-
-### Modelo No Supervisado (Segmentación de Clientes)
-
-**K-Means Clustering:**
-- Número óptimo de clusters: 4
-- Silhouette Score: ~0.45
-- Perfiles claramente diferenciados por comportamiento financiero
-
-**Insights obtenidos:**
-- Identificación de 4 segmentos distintos de clientes
-- Cada cluster tiene características financieras únicas
-- Permite personalización de estrategias de marketing
-
-## Metodología
-
-### Pipeline de Modelos Supervisados
-
-1. **Carga de datos:** Dataset Telco Customer Churn
-2. **Limpieza:** Manejo de valores nulos y conversión de tipos
-3. **Feature Engineering:** One-Hot Encoding de variables categóricas
-4. **Normalización:** MinMaxScaler para variables numéricas
-5. **División:** 80% entrenamiento, 20% prueba (stratified)
-6. **Entrenamiento:** Regresión Logística y KNN
-7. **Evaluación:** Métricas de clasificación y ROC-AUC
-
-### Pipeline de Modelo No Supervisado
-
-1. **Carga de datos:** Dataset Credit Card
-2. **Limpieza:** Imputación de valores faltantes con mediana
-3. **Normalización:** StandardScaler (estandarización)
-4. **Determinación de k:** Método del Codo y Silhouette
-5. **Entrenamiento:** K-Means con k=4
-6. **Evaluación:** Análisis de clusters e interpretación
-
-## Consideraciones Técnicas
-
-### Preprocesamiento
-
-- **One-Hot Encoding:** Transformación de variables categóricas a formato binario
-- **Normalización:** Escalado de variables numéricas para evitar dominancia por escala
-- **Imputación:** Uso de mediana para valores faltantes (robusto ante outliers)
-
-### Validación
-
-- **Stratified Split:** Mantiene proporción de clases en train/test
-- **Random State:** Reproducibilidad de resultados (seed=42)
-- **Cross-Validation:** Implementado en notebooks para validación robusta
-
-## Autor
-
-**Kevin Serna**  
-Proyecto Final - Machine Learning  
-Estudiante de Ingeniería
-
-## Fuentes de Datos
-
-- **Dataset Telco Customer Churn:** [Kaggle - Telco Customer Churn](https://www.kaggle.com/datasets/blastchar/telco-customer-churn)
-- **Dataset Credit Card:** [Kaggle - Credit Card Dataset for Clustering](https://www.kaggle.com/datasets/arjunbhasin2013/ccdata)
-
-## Licencia
-
-Este proyecto es de uso académico y educativo.
-
-## Notas Adicionales
-
-### Reentrenamiento de Modelos
-
-Si desea reentrenar los modelos con diferentes hiperparámetros:
-
-1. Modificar `entrenar_modelos.py` con los nuevos parámetros
-2. Ejecutar: `python entrenar_modelos.py`
-3. Los nuevos modelos sobrescribirán los archivos `.pkl` existentes
-
-### Personalización de la Aplicación
-
-El archivo `app.py` puede ser personalizado para:
-- Agregar nuevas métricas de visualización
-- Modificar umbrales de decisión
-- Incluir nuevos modelos
-- Personalizar la interfaz de usuario
-
-### Troubleshooting
-
-**Error: No module named 'X'**
-- Solución: Verificar que todas las dependencias estén instaladas con `pip install -r requirements.txt`
-
-**Error: No such file or directory: 'modelo_X.pkl'**
-- Solución: Ejecutar primero `python entrenar_modelos.py` para generar los modelos
-
-**Error: Mismatch in number of features**
-- Solución: Asegurarse de que los datos de entrada tengan el mismo formato que los datos de entrenamiento

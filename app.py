@@ -20,10 +20,8 @@ import pickle
 import numpy as np
 
 
-# ============================================
-# CONFIGURACIÓN INICIAL DE LA APLICACIÓN
-# ============================================
 
+# CONFIGURACIÓN INICIAL DE LA APLICACIÓN
 st.set_page_config(
     page_title="ML Models - Churn & Clustering",
     page_icon="📊",
@@ -32,10 +30,8 @@ st.set_page_config(
 )
 
 
-# ============================================
-# CARGA DE MODELOS Y RECURSOS
-# ============================================
 
+# CARGA DE MODELOS Y RECURSOS
 @st.cache_resource
 def cargar_modelos():
     """
@@ -48,28 +44,28 @@ def cargar_modelos():
         tuple: Contiene los modelos, scalers y nombres de columnas
     """
     # Carga de modelos de clasificación
-    with open('modelo_logistica.pkl', 'rb') as f:
+    with open('models/modelo_logistica.pkl', 'rb') as f:
         log_model = pickle.load(f)
     
-    with open('modelo_knn.pkl', 'rb') as f:
+    with open('models/modelo_knn.pkl', 'rb') as f:
         knn_model = pickle.load(f)
     
     # Carga de modelo de clustering
-    with open('modelo_kmeans.pkl', 'rb') as f:
+    with open('models/modelo_kmeans.pkl', 'rb') as f:
         kmeans_model = pickle.load(f)
     
     # Carga de scalers (normalizadores de datos)
-    with open('scaler_telco.pkl', 'rb') as f:
+    with open('scalers/scaler_telco.pkl', 'rb') as f:
         scaler_telco = pickle.load(f)
     
-    with open('scaler_cc.pkl', 'rb') as f:
+    with open('scalers/scaler_cc.pkl', 'rb') as f:
         scaler_cc = pickle.load(f)
     
     # Carga de nombres de columnas para transformación de datos
-    with open('columnas_telco.pkl', 'rb') as f:
+    with open('data/columnas_telco.pkl', 'rb') as f:
         columnas_telco = pickle.load(f)
     
-    with open('columnas_cc.pkl', 'rb') as f:
+    with open('data/columnas_cc.pkl', 'rb') as f:
         columnas_cc = pickle.load(f)
     
     return log_model, knn_model, kmeans_model, scaler_telco, scaler_cc, columnas_telco, columnas_cc
@@ -79,10 +75,9 @@ def cargar_modelos():
 log_model, knn_model, kmeans_model, scaler_telco, scaler_cc, columnas_telco, columnas_cc = cargar_modelos()
 
 
-# ============================================
-# FUNCIONES AUXILIARES
-# ============================================
 
+
+# FUNCIONES AUXILIARES
 def preprocesar_datos_telco(input_data, columnas_esperadas):
     """
     Preprocesa los datos de entrada para modelos de Telco.
@@ -234,10 +229,7 @@ def crear_formulario_telco():
     }
 
 
-# ============================================
-# NAVEGACIÓN PRINCIPAL
-# ============================================
-
+# NAVEGACIÓN PRINCIPAl
 st.sidebar.title("Navegación")
 st.sidebar.markdown("Seleccione el modelo de Machine Learning a utilizar:")
 
@@ -252,10 +244,8 @@ pagina = st.sidebar.radio(
 )
 
 
-# ============================================
-# PÁGINA DE INICIO
-# ============================================
 
+# PÁGINA DE INICIO
 if pagina == "Inicio":
     st.title("Sistema de Predicción con Machine Learning")
     st.markdown("### Proyecto Final - Modelos Supervisados y No Supervisados")
@@ -315,10 +305,8 @@ if pagina == "Inicio":
     st.success("Seleccione un modelo en el menú lateral para comenzar el análisis")
 
 
-# ============================================
-# PÁGINA: REGRESIÓN LOGÍSTICA
-# ============================================
 
+# PÁGINA: REGRESIÓN LOGÍSTICA
 elif pagina == "Regresión Logística (Churn)":
     st.title("Predicción de Churn - Regresión Logística")
     
@@ -395,10 +383,8 @@ elif pagina == "Regresión Logística (Churn)":
             """)
 
 
-# ============================================
-# PÁGINA: K-NEAREST NEIGHBORS
-# ============================================
 
+# PÁGINA: K-NEAREST NEIGHBORS
 elif pagina == "K-Nearest Neighbors (Churn)":
     st.title("Predicción de Churn - K-Nearest Neighbors")
     
@@ -463,10 +449,8 @@ elif pagina == "K-Nearest Neighbors (Churn)":
             """)
 
 
-# ============================================
-# PÁGINA: K-MEANS CLUSTERING
-# ============================================
 
+# PÁGINA: K-MEANS CLUSTERING
 elif pagina == "K-Means Clustering":
     st.title("Segmentación de Clientes - K-Means Clustering")
     
@@ -684,10 +668,8 @@ elif pagina == "K-Means Clustering":
                 st.info(perfil['descripcion'])
 
 
-# ============================================
-# FOOTER DE LA APLICACIÓN
-# ============================================
 
+# FOOTER DE LA APLICACIÓN
 st.sidebar.markdown("---")
 st.sidebar.markdown("""
 **Información del Proyecto**
