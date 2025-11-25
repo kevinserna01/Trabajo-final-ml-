@@ -3,14 +3,14 @@ Script de Entrenamiento de Modelos de Machine Learning
 
 Este script realiza el entrenamiento de los modelos de clasificación
 y clustering, y exporta los modelos entrenados junto con los recursos
-necesarios para su uso en producción.
+necesarios para su uso.
 
 Modelos implementados:
 1. Regresión Logística (Clasificación de Churn)
 2. K-Nearest Neighbors (Clasificación de Churn)
 3. K-Means (Clustering de clientes)
 
-Autor: Kevin Serna
+Autores: Kevin Serna, Johan Stiven Sinisterra , Juan David Quintero
 Proyecto Final - Machine Learning
 """
 
@@ -25,16 +25,16 @@ from sklearn.preprocessing import MinMaxScaler, StandardScaler
 
 def entrenar_modelos_telco():
     """
-    Entrena los modelos de clasificación para predicción de Churn.
+    Entrenamiento de los modelos de clasificación para predicción de Churn.
     
-    Pipeline:
     1. Carga y limpieza de datos
     2. Preprocesamiento (One-Hot Encoding y escalado)
     3. División train/test
     4. Entrenamiento de Regresión Logística y KNN
     5. Exportación de modelos y recursos
     
-    Returns:
+    Retorna un tupla con los modelos entrenados, scaler y nombres de columnas:
+
         tuple: Modelos entrenados, scaler y nombres de columnas
     """
     print("\n" + "="*60)
@@ -154,16 +154,16 @@ def entrenar_modelos_telco():
 
 def entrenar_modelo_clustering():
     """
-    Entrena el modelo de clustering K-Means para segmentación de clientes.
+    Entrenamiento del modelo de clustering K-Means para segmentación de clientes.
     
-    Pipeline:
     1. Carga y limpieza de datos
     2. Imputación de valores faltantes
     3. Escalado de características
     4. Entrenamiento de K-Means
     5. Exportación de modelo y recursos
     
-    Returns:
+    Retorna un tupla con el modelo entrenado, scaler y nombres de columnas:
+
         tuple: Modelo entrenado, scaler y nombres de columnas
     """
     print("\n" + "="*60)
