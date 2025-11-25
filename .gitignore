@@ -24,10 +24,10 @@ wheels/
 .installed.cfg
 *.egg
 
-# Modelos entrenados (archivos grandes)
-models/*.pkl
-scalers/*.pkl
-data/*.pkl
+# Modelos entrenados (comentado para permitir deploy en Streamlit Cloud)
+# models/*.pkl
+# scalers/*.pkl
+# data/*.pkl
 
 # Jupyter Notebook
 .ipynb_checkpoints

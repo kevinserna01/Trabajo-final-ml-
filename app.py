@@ -18,6 +18,8 @@ import streamlit as st
 import pandas as pd
 import pickle
 import numpy as np
+import os
+import subprocess
 
 
 
@@ -32,6 +34,24 @@ st.set_page_config(
 
 
 # CARGA DE MODELOS Y RECURSOS
+def verificar_y_entrenar_modelos():
+    """
+    Verifica si los modelos existen. Si no, los entrena automáticamente.
+    Útil para el primer despliegue en Streamlit Cloud.
+    """
+    if not os.path.exists('models/modelo_logistica.pkl'):
+        st.warning("Modelos no encontrados. Entrenando modelos por primera vez...")
+        st.info("Esto puede tomar 1-2 minutos. Por favor espera...")
+        
+        # Ejecutar el script de entrenamiento
+        try:
+            subprocess.run(['python', 'entrenar_modelos.py'], check=True)
+            st.success("Modelos entrenados exitosamente!")
+            st.rerun()
+        except Exception as e:
+            st.error(f"Error al entrenar modelos: {str(e)}")
+            st.stop()
+
 @st.cache_resource
 def cargar_modelos():
     """
@@ -43,6 +63,9 @@ def cargar_modelos():
     Returns:
         tuple: Contiene los modelos, scalers y nombres de columnas
     """
+    # Verificar que los modelos existan
+    verificar_y_entrenar_modelos()
+    
     # Carga de modelos de clasificación
     with open('models/modelo_logistica.pkl', 'rb') as f:
         log_model = pickle.load(f)
