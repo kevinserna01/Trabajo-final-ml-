@@ -16,10 +16,10 @@ Este proyecto integra técnicas de aprendizaje supervisado y no supervisado util
 
 Link del video: https://drive.google.com/file/d/1juxV-u0PDORdaE0envlda6NXvONlS-1B/view?usp=sharing
 
-##Links de los noteBoks
-###Tarjetas
+## Links de los noteBoks
+### Tarjetas
 https://colab.research.google.com/drive/1_4GIopMKgBWbqfxwMl3qBCwjOTNDVClO?usp=sharing
-###Telco
+### Telco
 https://colab.research.google.com/drive/1VP3nUec5lpnH7IbKw33s64gOV2h3ytrh?usp=sharing
 
 ## Contenidos del Proyecto
